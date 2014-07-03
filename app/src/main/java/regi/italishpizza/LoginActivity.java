@@ -4,6 +4,7 @@ import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -15,7 +16,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -33,13 +33,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
         LinearLayout gl = (LinearLayout) findViewById(R.id.LoginLinearLayout);
 
-        db.addStaffMember("Regi","Pass","1");
+        db.addStaffMember("Regi", "Pass", "1");
         List<String> staff = db.getAllStaffUsernames();
-
-
-
-
-
 
 
         for (int i = 0; i < staff.size(); i++) {
@@ -55,7 +50,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             int margin = (int) (8 * scale + 0.5f);
             lp.setMargins(margin, margin, margin, margin);
             cv.setLayoutParams(lp);
-
 
 
             TextView tv = new TextView(this);
@@ -86,8 +80,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
 
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.login, menu);
@@ -105,12 +97,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     public void onClick(View view) {
 
-        final String viewtag = view.getTag() + "";
+        final String viewTag = view.getTag() + "";
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Enter password for " + viewtag);
-
-
+        builder.setTitle("Enter password for " + viewTag);
 
 // Set up the input
         final EditText input = new EditText(this);
@@ -122,14 +112,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (db.verifyUser(viewtag, input.getText().toString())){
-                    Toast.makeText(getApplicationContext(), "Success login", Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(getApplicationContext(), "failed login", Toast.LENGTH_SHORT).show();
+                if (db.verifyUser(viewTag, input.getText().toString())) {
+                    Intent x = new Intent(LoginActivity.this, MainMenu.class);
+                    startActivity(x);
                 }
-
-
-
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

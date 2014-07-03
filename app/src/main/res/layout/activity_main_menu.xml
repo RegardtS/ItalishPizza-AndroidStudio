@@ -1,0 +1,47 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="regi.italishpizza.MainMenu"
+    android:background="#DEDEDE"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="288dp"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:background="#e51c23"
+        android:layout_alignParentTop="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/TV_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Username"
+            android:textColor="@android:color/white"
+            android:fontFamily="sans-serif-thin"
+            android:textSize="64sp" />
+
+    </LinearLayout>
+
+
+    <HorizontalScrollView
+        android:layout_alignParentBottom="true"
+
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_width="match_parent"
+        android:layout_height="400dp">
+
+        <LinearLayout
+            android:id="@+id/MainLinearLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal"
+            android:gravity="center" />
+
+    </HorizontalScrollView>
+
+</RelativeLayout>
