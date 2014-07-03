@@ -2,7 +2,6 @@ package regi.italishpizza;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -10,21 +9,22 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class MainMenu extends Activity implements View.OnClickListener{
+public class Management extends Activity implements View.OnClickListener {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_menu);
+        setContentView(R.layout.activity_management);
 
-        LinearLayout gl = (LinearLayout) findViewById(R.id.MainLinearLayout);
-        List<String> menuChoices = Arrays.asList("Management", "Order", "Inventory", "Bookings");
-
-
+        LinearLayout gl = (LinearLayout) findViewById(R.id.ManagementLinearLayout);
+        List<String> menuChoices = Arrays.asList("Add Product", "Add User");
 
 
         for (int i = 0; i < menuChoices.size(); i++) {
@@ -70,11 +70,13 @@ public class MainMenu extends Activity implements View.OnClickListener{
 
     }
 
-
-
-
     public void onClick(View view) {
-        Intent x = new Intent(MainMenu.this, Management.class);
-        startActivity(x);
+        Toast.makeText(getApplicationContext(), "Tapped", Toast.LENGTH_LONG).show();
     }
+
+
+    
+
+
+
 }

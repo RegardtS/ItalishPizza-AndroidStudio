@@ -25,6 +25,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="regi.italishpizza.LoginActivity" />
         </activity>
+        <activity
+            android:name=".Management"
+            android:label="@string/title_activity_management"
+            android:parentActivityName=".MainMenu" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="regi.italishpizza.MainMenu" />
+        </activity>
+        <activity
+            android:name=".Order"
+            android:label="@string/title_activity_order"
+            android:parentActivityName=".MainMenu" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="regi.italishpizza.MainMenu" />
+        </activity>
     </application>
 
 </manifest>
