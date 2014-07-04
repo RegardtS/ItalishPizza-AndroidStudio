@@ -1,10 +1,16 @@
 package regi.italishpizza;
 
 import android.app.Activity;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import regi.italishpizza.R;
+
+import com.echo.holographlibrary.Bar;
+import com.echo.holographlibrary.BarGraph;
+
+import java.util.ArrayList;
 
 public class Order extends Activity {
 
@@ -12,7 +18,48 @@ public class Order extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     @Override
