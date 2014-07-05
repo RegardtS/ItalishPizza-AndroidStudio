@@ -1,0 +1,71 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="regi.italishpizza.Bookings">
+
+    <TextView
+        android:text="Date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_date"
+        />
+    <TextView
+        android:text="Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_name"
+        android:layout_below="@id/tv_date"
+        />
+    <TextView
+        android:text="Surname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_surname"
+        android:layout_below="@id/tv_name"
+        />
+    <TextView
+        android:text="Contact number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_contactNumber"
+        android:layout_below="@id/tv_surname"
+        />
+    <TextView
+        android:text="Email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_email"
+        android:layout_below="@id/tv_contactNumber"
+        />
+    <TextView
+        android:text="Table Size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_tableSize"
+        android:layout_below="@id/tv_email"
+        />
+    <TextView
+        android:text="Booking time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_BookingTime"
+        android:layout_below="@id/tv_tableSize"
+        />
+
+    <View
+        android:id="@+id/dpResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/tv_date"
+        android:background="#808080"
+        android:onClick="tappedView"
+
+        />
+
+
+</RelativeLayout>

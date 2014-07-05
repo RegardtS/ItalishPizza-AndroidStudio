@@ -67,6 +67,8 @@ public class MainMenu extends Activity implements View.OnClickListener{
 
         }
 
+        Intent x = new Intent(MainMenu.this, Order.class);
+        startActivity(x);
 
     }
 

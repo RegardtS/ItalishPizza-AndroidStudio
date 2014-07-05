@@ -41,6 +41,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="regi.italishpizza.MainMenu" />
         </activity>
+        <activity
+            android:name=".Bookings"
+            android:label="@string/title_activity_bookings"
+            android:parentActivityName=".MainMenu" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="regi.italishpizza.MainMenu" />
+        </activity>
     </application>
 
 </manifest>

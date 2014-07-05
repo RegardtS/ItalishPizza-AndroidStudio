@@ -27,6 +27,12 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
+        Intent x = new Intent(LoginActivity.this, Bookings.class);
+        startActivity(x);
+
+
+
         db = new MySQLiteHelper(this);
 
         LinearLayout gl = (LinearLayout) findViewById(R.id.LoginLinearLayout);
