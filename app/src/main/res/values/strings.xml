@@ -11,5 +11,6 @@
     <string name="title_section3">Section 3</string>
     <string name="title_activity_order">Order</string>
     <string name="title_activity_bookings">Bookings</string>
+    <string name="title_activity_test">TestActivity</string>
 
 </resources>

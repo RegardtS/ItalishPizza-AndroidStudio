@@ -57,14 +57,14 @@
         android:layout_below="@id/tv_tableSize"
         />
 
-    <View
+    <Button
         android:id="@+id/dpResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/tv_date"
         android:background="#808080"
         android:onClick="tappedView"
-
+        android:layout_marginLeft="16dp"
         />
 
 

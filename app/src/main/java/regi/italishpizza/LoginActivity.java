@@ -28,7 +28,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_login);
 
 
-        Intent x = new Intent(LoginActivity.this, Bookings.class);
+        Intent x = new Intent(LoginActivity.this, TestActivity.class);
         startActivity(x);
 
 
