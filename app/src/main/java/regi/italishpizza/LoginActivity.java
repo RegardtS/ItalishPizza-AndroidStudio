@@ -28,16 +28,17 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_login);
 
 
-        Intent x = new Intent(LoginActivity.this, TestActivity.class);
-        startActivity(x);
+//        Intent x = new Intent(LoginActivity.this, Bookings.class);
+//        startActivity(x);
 
 
 
         db = new MySQLiteHelper(this);
 
+
+
         LinearLayout gl = (LinearLayout) findViewById(R.id.LoginLinearLayout);
 
-        db.addStaffMember("Regi", "Pass", "1");
         List<String> staff = db.getAllStaffUsernames();
 
 
@@ -81,7 +82,11 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
         }
 
+
+
+
     }
+
 
 
     public void onClick(View view) {

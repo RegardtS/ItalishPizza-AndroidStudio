@@ -36,7 +36,10 @@
     </LinearLayout>
 
 
+
+
     <HorizontalScrollView
+        android:background="#808080"
         android:layout_alignParentBottom="true"
 
         android:layout_marginTop="@dimen/activity_vertical_margin"
@@ -54,5 +57,6 @@
             />
 
     </HorizontalScrollView>
+
 
 </RelativeLayout>

@@ -1,6 +1,6 @@
 apply plugin: 'android-library'
 android {
-    compileSdkVersion 'android-L'
+    compileSdkVersion 19
     buildToolsVersion '20.0.0'
 
     sourceSets {

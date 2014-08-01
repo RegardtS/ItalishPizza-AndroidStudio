@@ -21,14 +21,29 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     // Database Name
     private static final String DATABASE_NAME = "ItalishDB";
 
-    // Staff Table Name
+    // Table Names
     private static final String TABLE_STAFF = "STAFF";
+    private static final String TABLE_BOOKINGS = "BOOKINGS";
+
 
     // Staff Table Columns names
     private static final String KEY_STAFF_ID = "id";
     private static final String KEY_STAFF_NAME = "name";
     private static final String KEY_STAFF_PASSWORD = "password";
     private static final String KEY_STAFF_AUTHORITY = "authority";
+
+    // Staff Booking Columns names
+    private static final String KEY_BOOKING_ID = "id";
+    private static final String KEY_BOOKING_NAME = "name";
+    private static final String KEY_BOOKING_TIME = "time";
+    private static final String KEY_BOOKING_DATE = "date";
+    private static final String KEY_BOOKING_CONTACT = "contact";
+    private static final String KEY_BOOKING_SIZE = "size";
+
+
+
+
+
 
     public MySQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -39,11 +54,24 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         // SQL statement to create book table
         String CREATE_STAFF_TABLE = "CREATE TABLE " + TABLE_STAFF + " ( "
                 + KEY_STAFF_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + KEY_STAFF_NAME + " TEXT, " + KEY_STAFF_PASSWORD + " TEXT,"
+                + KEY_STAFF_NAME + " TEXT, "
+                + KEY_STAFF_PASSWORD + " TEXT,"
                 + KEY_STAFF_AUTHORITY + " TEXT)";
 
-        // create books table
+        // create staff table
         db.execSQL(CREATE_STAFF_TABLE);
+
+        String CREATE_BOOKING_TABLE = "CREATE TABLE " + TABLE_BOOKINGS + " ( "
+                + KEY_BOOKING_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + KEY_BOOKING_NAME + " TEXT , "
+                + KEY_BOOKING_TIME + " TEXT , "
+                + KEY_BOOKING_DATE + " TEXT , "
+                + KEY_BOOKING_CONTACT + " TEXT,  "
+                + KEY_BOOKING_SIZE + " INTEGER)";
+
+        // create books table
+        db.execSQL(CREATE_BOOKING_TABLE);
+
 
     }
 
@@ -51,13 +79,14 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older books table if existed
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_STAFF);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_BOOKINGS);
+
 
         // create fresh books table
         this.onCreate(db);
     }
 
-    public void addStaffMember(String name, String password,
-                               String authorityLevel) {
+    public void addStaffMember(String name, String password, String authorityLevel) {
 
         // 1. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
@@ -109,4 +138,73 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         }
         return true;
     }
+
+
+    public void addBooking(String name, String time, String date, String contact, int size) {
+
+        // 1. get reference to writable DB
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // 2. create ContentValues to add key "column"/value
+        ContentValues values = new ContentValues();
+        values.put(KEY_BOOKING_NAME, name);
+        values.put(KEY_BOOKING_TIME, time);
+        values.put(KEY_BOOKING_DATE, date);
+        values.put(KEY_BOOKING_CONTACT, contact);
+        values.put(KEY_BOOKING_SIZE, size);
+
+        // 3. insert
+        db.insert(TABLE_BOOKINGS, // table
+                null, // nullColumnHack
+                values); // key/value -> keys = column names/ values = column
+        // values
+
+        // 4. close
+        db.close();
+    }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
