@@ -1,24 +1,24 @@
 package regi.italishpizza;
 
-import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
+import android.preference.PreferenceManager;
 import android.text.InputType;
-import android.view.Gravity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.List;
 
 
-public class LoginActivity extends Activity implements View.OnClickListener {
+public class LoginActivity extends Activity {
 
     MySQLiteHelper db;
 
@@ -28,8 +28,17 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_login);
 
 
-//        Intent x = new Intent(LoginActivity.this, Bookings.class);
-//        startActivity(x);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String name = preferences.getString("CURRENTUSER","");
+        if(!name.equalsIgnoreCase(""))
+        {
+            Intent x = new Intent(LoginActivity.this, MainMenu.class);
+            startActivity(x);
+        }
+
+
+
+
 
 
 
@@ -37,50 +46,53 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
 
 
-        LinearLayout gl = (LinearLayout) findViewById(R.id.LoginLinearLayout);
-
-        List<String> staff = db.getAllStaffUsernames();
 
 
-        for (int i = 0; i < staff.size(); i++) {
-            CardView cv = new CardView(this);
+        final List<String> staff = db.getAllStaffUsernames();
 
-            cv.setRadius(4);
+        ListView lv = (ListView) findViewById(R.id.login_listView);
 
-            LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, staff);
+        lv.setAdapter(adapter);
 
-            final float scale = getResources().getDisplayMetrics().density;
-            lp.width = (int) (200 * scale + 0.5f);
-            lp.height = (int) (200 * scale + 0.5f);
-            int margin = (int) (8 * scale + 0.5f);
-            lp.setMargins(margin, margin, margin, margin);
-            cv.setLayoutParams(lp);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                final String username = staff.get(i);
+                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                builder.setTitle("Enter password for " + username);
+                final EditText input = new EditText(LoginActivity.this);
+                input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                builder.setView(input);
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (db.verifyUser(username, input.getText().toString())) {
+                            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString("CURRENTUSER", username);
+                            editor.apply();
+                            Intent x = new Intent(LoginActivity.this, MainMenu.class);
+                            startActivity(x);
+                        }else{
+                            dialog.cancel();
+                            Toast.makeText(LoginActivity.this, "Invalid password",Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
+            }
+        });
 
 
-            TextView tv = new TextView(this);
-            tv.setText(staff.get(i));
-            tv.setGravity(Gravity.CENTER);
-            tv.setTextColor(Color.BLACK);
 
-            cv.addView(tv);
-
-            cv.setTag(staff.get(i));
-            cv.setOnClickListener(this);
-            gl.addView(cv);
-
-
-            View v = new View(getApplicationContext());
-
-            LayoutParams lp2 = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-            lp2.width = (int) (80 * scale + 0.5f);
-            lp2.height = (int) (175 * scale + 0.5f);
-
-            v.setLayoutParams(lp2);
-
-            gl.addView(v);
-
-
-        }
 
 
 
@@ -89,38 +101,5 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
 
 
-    public void onClick(View view) {
 
-        final String viewTag = view.getTag() + "";
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Enter password for " + viewTag);
-
-        // Set up the input
-        final EditText input = new EditText(this);
-
-        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        builder.setView(input);
-
-        // Set up the buttons
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (db.verifyUser(viewTag, input.getText().toString())) {
-                    Intent x = new Intent(LoginActivity.this, MainMenu.class);
-                    startActivity(x);
-                }
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-
-        builder.show();
-
-    }
 }

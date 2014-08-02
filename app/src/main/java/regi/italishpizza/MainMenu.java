@@ -3,8 +3,10 @@ package regi.italishpizza;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.CardView;
 import android.view.Gravity;
 import android.view.View;
@@ -20,6 +22,14 @@ public class MainMenu extends Activity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String name = preferences.getString("CURRENTUSER","");
+        if(!name.equalsIgnoreCase("")){
+            TextView tv = (TextView) findViewById(R.id.TV_username);
+            tv.setText(name);
+        }
+
 
         LinearLayout gl = (LinearLayout) findViewById(R.id.MainLinearLayout);
         List<String> menuChoices = Arrays.asList("Management", "Order", "Inventory", "Bookings");
@@ -67,8 +77,8 @@ public class MainMenu extends Activity implements View.OnClickListener{
 
         }
 
-        Intent x = new Intent(MainMenu.this, Order.class);
-        startActivity(x);
+        //Intent x = new Intent(MainMenu.this, Order.class);
+        //startActivity(x);
 
     }
 
