@@ -30,23 +30,12 @@ public class LoginActivity extends Activity {
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String name = preferences.getString("CURRENTUSER","");
-        if(!name.equalsIgnoreCase(""))
-        {
+        if(!name.equalsIgnoreCase("")) {
             Intent x = new Intent(LoginActivity.this, MainMenu.class);
             startActivity(x);
         }
 
-
-
-
-
-
-
         db = new MySQLiteHelper(this);
-
-
-
-
 
         final List<String> staff = db.getAllStaffUsernames();
 
@@ -90,16 +79,5 @@ public class LoginActivity extends Activity {
                 builder.show();
             }
         });
-
-
-
-
-
-
-
     }
-
-
-
-
 }
