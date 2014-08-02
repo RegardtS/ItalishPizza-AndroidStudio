@@ -47,6 +47,7 @@ public class LoginActivity extends Activity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
                 final String username = staff.get(i);
                 AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                 builder.setTitle("Enter password for " + username);
@@ -63,6 +64,7 @@ public class LoginActivity extends Activity {
                             editor.apply();
                             Intent x = new Intent(LoginActivity.this, MainMenu.class);
                             startActivity(x);
+                            finish();
                         }else{
                             dialog.cancel();
                             Toast.makeText(LoginActivity.this, "Invalid password",Toast.LENGTH_LONG).show();

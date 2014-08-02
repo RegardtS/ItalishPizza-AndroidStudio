@@ -2,21 +2,28 @@ package regi.italishpizza;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.CardView;
+import android.view.GestureDetector;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class MainMenu extends Activity implements View.OnClickListener{
+
+    TextView tv_username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +32,29 @@ public class MainMenu extends Activity implements View.OnClickListener{
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String name = preferences.getString("CURRENTUSER","");
-        if(!name.equalsIgnoreCase("")){
-            TextView tv = (TextView) findViewById(R.id.TV_username);
-            tv.setText(name);
-        }
+
+        tv_username = (TextView) findViewById(R.id.TV_username);
+        tv_username.setText(name);
+
+        tv_username.setOnTouchListener(new View.OnTouchListener() {
+            private GestureDetector gestureDetector = new GestureDetector(MainMenu.this, new GestureDetector.SimpleOnGestureListener() {
+                @Override
+                public boolean onDoubleTap(MotionEvent e) {
+                    createLogoutPopup();
+                    return super.onDoubleTap(e);
+                }
+            });
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                gestureDetector.onTouchEvent(event);
+                return true;
+            }
+        });
+
+
+
+
 
 
         LinearLayout gl = (LinearLayout) findViewById(R.id.MainLinearLayout);
@@ -76,12 +102,32 @@ public class MainMenu extends Activity implements View.OnClickListener{
 
 
         }
-
-        //Intent x = new Intent(MainMenu.this, Order.class);
-        //startActivity(x);
-
     }
 
+
+    public void createLogoutPopup(){
+        new AlertDialog.Builder(this)
+                .setTitle("Delete entry")
+                .setMessage("Are you sure you want to delete this entry?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MainMenu.this);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.remove("CURRENTUSER");
+                        editor.apply();
+                        Intent x = new Intent(MainMenu.this, LoginActivity.class);
+                        startActivity(x);
+                        finish();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getApplicationContext(),"NO",Toast.LENGTH_LONG).show();
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
 
 
 
